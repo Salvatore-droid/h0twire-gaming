@@ -77,6 +77,22 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // Serve verification file for domain authorization
+    if (req.method === 'GET' && pathname === '/.well-known/geniusguard-verification.txt') {
+        const wellKnownPath = path.join(__dirname, '.well-known', 'geniusguard-verification.txt');
+        fs.readFile(wellKnownPath, 'utf8', (err, data) => {
+            if (err) {
+                console.error('Verification file not found at:', wellKnownPath);
+                res.writeHead(404, { 'Content-Type': 'text/plain' });
+                res.end('Verification file not found');
+                return;
+            }
+            res.writeHead(200, { 'Content-Type': 'text/plain' });
+            res.end(data);
+        });
+        return;
+    }
+
     // Serve the main Hotwire Gaming HTML (index)
     if (req.method === 'GET' && pathname === '/') {
         fs.readFile(path.join(__dirname, 'index.html'), (err, data) => {
