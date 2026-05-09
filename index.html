@@ -321,6 +321,48 @@
             }
         }
     </style>
+
+    <!-- Genius Mirage Tracker — paste just before </body> -->
+<script>
+(function() {
+  var _gm = {
+    site:  "site-1778363899986",
+    token: "93245d62bd89e59d9a98e088f88872e0",
+    url:   "http://localhost:8000/api/track/public/"
+  };
+
+  function send(extra) {
+    var payload = Object.assign({
+      site_id:    _gm.site,
+      token:      _gm.token,
+      page_url:   window.location.href,
+      referrer:   document.referrer,
+      user_agent: navigator.userAgent,
+      timestamp:  Date.now()
+    }, extra || {});
+
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(payload)], {type: 'application/json'});
+      navigator.sendBeacon(_gm.url, blob);
+    } else {
+      fetch(_gm.url, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload),
+        keepalive: true
+      }).catch(function(){});
+    }
+  }
+
+  send({ event: 'pageview' });
+
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (a) send({ event: 'click', target: a.href });
+  });
+})();
+</script>
+<!-- End Genius Mirage Tracker -->
 </head>
 <body>
     <div class="grid-bg"></div>
